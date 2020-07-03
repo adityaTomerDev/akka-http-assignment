@@ -13,6 +13,7 @@ object JsonFormats  {
   implicit val studentJsonFormat = jsonFormat9(Student)
   implicit val newStudentJsonFormat = jsonFormat8(NewStudent)
   implicit val studentssJsonFormat = jsonFormat1(Students)
+  implicit val updateStudentInfoJsonFormat = jsonFormat9(UpdateStudentInfo)
 
   implicit val actionPerformedJsonFormat = jsonFormat1(ActionPerformed)
 }

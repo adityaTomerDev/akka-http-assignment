@@ -100,7 +100,8 @@ StudentRoutesSpec extends WordSpec with Matchers with ScalaFutures with Scalates
     "be able to update student" in {
       getByState() match {
         case Some(value) =>
-          val entity = Marshal(value.copy(city = "Gurugram")).to[MessageEntity].futureValue
+          val updateInfo = UpdateStudentInfo( id = value.id, city = Some("Gurugram"))
+          val entity = Marshal(updateInfo).to[MessageEntity].futureValue
           val request = Put(s"/students/${value.id}").withEntity(entity)
           request ~> routes ~> check {
             println(" status in put"+ status)

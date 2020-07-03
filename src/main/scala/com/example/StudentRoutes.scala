@@ -34,8 +34,8 @@ class StudentRoutes(StudentRegistry: ActorRef[StudentService.Command])(implicit 
     StudentRegistry.ask(GetStudentsByCity(city, _))
   def getStudentsByState(state: String): Future[Students] =
     StudentRegistry.ask(GetStudentsByState(state, _))
-  def updateStudent(student: Student): Future[ActionPerformed] =
-    StudentRegistry.ask(UpdateStudent(student, _))
+  def updateStudent(updateInfo: UpdateStudentInfo): Future[ActionPerformed] =
+    StudentRegistry.ask(UpdateStudent(updateInfo, _))
   def createStudent(newStudent: NewStudent): Future[ActionPerformed] =
     StudentRegistry.ask(CreateStudent(newStudent, _))
   def deleteStudent(name: String): Future[ActionPerformed] =
@@ -82,9 +82,9 @@ class StudentRoutes(StudentRegistry: ActorRef[StudentService.Command])(implicit 
               //#Students-delete-logic
             },
             put {
-              entity(as[Student]) { student =>
+              entity(as[UpdateStudentInfo]) { info =>
                 println(" iin update call")
-                onSuccess(updateStudent(student)) { response =>
+                onSuccess(updateStudent(info)) { response =>
                   complete(response)
 
                 }
